@@ -1,4 +1,4 @@
-import listFunctions from './app';
+import listFunctions from '.';
 import dotenv from 'dotenv';
 import HDWalletProvider from '@truffle/hdwallet-provider';
 import { OpenSeaPort, Network } from 'opensea-js';
@@ -51,7 +51,9 @@ if (process.env.API_KEY) {
 } else {
 	seaport = new OpenSeaPort(provider, {
 		networkName:
-			process.env.NETWORK === 'test' ? Network.Rinkeby : Network.Main,
+			process.env.NETWORK && process.env.NETWORK === 'test'
+				? Network.Rinkeby
+				: Network.Main,
 		apiKey: process.env.API_KEY,
 	});
 }
