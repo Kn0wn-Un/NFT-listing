@@ -5,7 +5,6 @@ A simple script to sell ERC-721 and ERC-1155 tokens on opensea, either by sellin
 ## Installation
 
 - Install all required packages using
-
   `yarn install`
 
 - Then create a `.env` file in the top level of the directory and add the required environment variables
