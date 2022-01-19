@@ -26,3 +26,7 @@ Refer `example.ts` to see how to use the methods.
 - Changes can be done in `app.ts` to change the type of listing done on opensea, refer [opensea-js documentation](https://github.com/ProjectOpenSea/opensea-js)
 
 - Provider can be changed instead of using `HDWalletProvider` make sure to make it compatible with given functions.
+
+## LICENSE
+
+MIT
