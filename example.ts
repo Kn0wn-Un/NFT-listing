@@ -15,6 +15,7 @@ interface Asset {
 	// Optional for fungible items
 	decimals?: number;
 }
+
 const BUNDLE_ASSETS: Array<Asset> = [
 	{
 		tokenAddress: '0x1EF29Bd36e480ebe1a45712D5E37f395459B4D3d',
@@ -32,17 +33,33 @@ const ASSET: Asset = {
 const expirationTime: number = Math.round(Date.now() / 1000 + 60 * 60 * 24);
 const listingTime: number = Math.round(Date.now() / 1000 + 60);
 
+// web3 provider
 const provider = new HDWalletProvider(
 	process.env.PRIVATE_KEY ?? '',
 	process.env.NETWORK_PROVIDER ?? ''
 );
-const accountAddress: string = provider.getAddress();
-const seaport = new OpenSeaPort(provider, {
-	networkName: Network.Rinkeby,
-});
 
+// public key of the account
+const accountAddress: string = provider.getAddress();
+
+// OpenSeaJS client
+let seaport;
+if (process.env.API_KEY) {
+	seaport = new OpenSeaPort(provider, {
+		networkName: Network.Rinkeby,
+	});
+} else {
+	seaport = new OpenSeaPort(provider, {
+		networkName:
+			process.env.NETWORK === 'test' ? Network.Rinkeby : Network.Main,
+		apiKey: process.env.API_KEY,
+	});
+}
+
+// listFunctions object
 const newSale = listFunctions(seaport);
 
+// function to sell a single asset
 newSale.sellSingleAsset(
 	ASSET,
 	accountAddress,
@@ -50,6 +67,8 @@ newSale.sellSingleAsset(
 	expirationTime,
 	listingTime
 );
+
+// function to sell a bundle
 newSale.sellBundle(
 	'Bundle name',
 	'Bundle Description',

@@ -11,7 +11,18 @@ interface Asset {
 	decimals?: number;
 }
 
+/**
+ *
+ * @param seaport OpenSeaJS client, called an OpenSeaPort
+ * @returns sellSingleAsset and sellBundle functions
+ */
 const listFunctions = (seaport: OpenSeaPort) => {
+	/**
+	 *
+	 * @param asset asset object to check ownership
+	 * @param accountAddress public key of account
+	 * @returns
+	 */
 	const isAssetOwner = async (asset: Asset, accountAddress: string) => {
 		try {
 			const resp = await seaport.api.getAsset(asset);
@@ -26,6 +37,15 @@ const listFunctions = (seaport: OpenSeaPort) => {
 		}
 	};
 
+	/**
+	 *
+	 * @param asset asset object to sell
+	 * @param accountAddress public key of account
+	 * @param startAmount minimum price to start auction
+	 * @param expirationTime time at which the auction expires
+	 * @param listingTime time at which the item will be listed to sell
+	 * @returns
+	 */
 	const sellSingleAsset = async (
 		asset: Asset,
 		accountAddress: string,
@@ -58,6 +78,16 @@ const listFunctions = (seaport: OpenSeaPort) => {
 		}
 	};
 
+	/**
+	 *
+	 * @param bundleName name of the bundle
+	 * @param bundleDescription description of the bundle
+	 * @param assets array of assets to sell
+	 * @param accountAddress public key of the account
+	 * @param startAmount price of the bundle
+	 * @param listingTime time at which the asset will be listed
+	 * @returns
+	 */
 	const sellBundle = async (
 		bundleName: string,
 		bundleDescription: string,
