@@ -26,6 +26,6 @@ Refer `example.ts` to see how to use the methods.
 
 - Provider can be changed instead of using `HDWalletProvider` make sure to make it compatible with given functions.
 
-## LICENSE
+## License
 
 MIT
